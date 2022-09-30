@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        
+        <link rel="stylesheet" type="text/css" href="LazyData.css"> 
+        <script type="text/javascript" src="./vue.js"></script>
+        <title id="title">LazyData</title>
+        <!--此为开发版本的vue-->
+    </head>
+    <body>
+        <div id="root" class="basic">
+            <div class="title"><h2>LazyData</h2></div>
+            <div class="block">
+                <div class="data">
+                    数据数量：<input type="number"  max="99" min="2" v-model="DataNumber"><br/>
+                    单变量统计<input type="radio" v-model="DoubleData" value="false" name="dd">
+                    双变量统计<input type="radio" v-model="DoubleData" value="true" name="dd">
+                </div>
+                <ul>
+                    <li v-for="(p,index) of Data" :key="index" class="data">
+                        x{{index+1}}: <input type="number" v-model="Data[index][0]">
+                        <span v-show="DoubleData=='true'" >y{{index+1}}: <input type="text" v-model="Data[index][1]"></span>
+                    </li>
+                </ul>
+                <button id="button" v-on:click="calculate">分析数据</button>
+            </div></br>
+            <div v-if="DoubleData!='true'" class="block">
+                单变量统计<br>
+                数据量: {{Data.length}}<br>
+                平均值: {{x_ave}}<br>
+                平均值不确定度: {{x_o}}
+            </div>
+            <div v-else class="block">
+                双变量统计<br>
+                数据量: {{Data.length}}<br>
+                最小二乘法: y=kx+b<br>
+                k={{k}},b={{b}},r={{r}}<br>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="./LazyData.js"></script>
+</html>
